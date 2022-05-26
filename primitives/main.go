@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 	// boolean
 	// n := 1 == 1
@@ -45,6 +43,30 @@ func main() {
 	// fmt.Println(a / b)
 
 	// complex number
-	var n complex64 = 1 + 2i
-	fmt.Printf("%v, %T", n, n)
+	// var n complex64 = 1 + 2i
+	// fmt.Printf("%v, %T", real(n), real(n))
+	// fmt.Printf("%v, %T", imag(n), imag(n))
+
+	// a := 1 + 2i
+	// b := 2 + 5.2i
+	// fmt.Printf(a + b)
+	// fmt.Printf(a - b)
+	// fmt.Printf(a * b)
+	// fmt.Printf(a / b)
+
+	// var n complex128 = complex(5, 12)
+	// fmt.Printf("%v, %T\n", n, n)
+
+	// text
+	// s := "this is a string"
+	// fmt.Printf("%v, %T", s[2], s[2])
+
+	// string concatenation
+	// s := "this is a string"
+	// s2 := "this is also a string"
+	// fmt.Printf("%v, %T", s+s2, s+s2)
+
+	// rune
+	// var r rune = 'a'
+	// fmt.Printf("%v, %T", r, r)
 }
