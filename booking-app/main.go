@@ -15,6 +15,8 @@ func main() {
 	var lastName string
 	var email string
 	var userTickets uint8
+	var bookings []string
+
 	// ask users for their personal informations
 	fmt.Print("Enter your first name: ")
 	fmt.Scan(&firstName)
@@ -29,7 +31,16 @@ func main() {
 	fmt.Scan(&userTickets)
 
 	remainingTicket -= userTickets
+	// bookings[0] = firstName + " " + lastName
+	bookings = append(bookings, firstName+" "+lastName)
+
+	// fmt.Printf("\nThe whole slice: %v\n", bookings)
+	// fmt.Printf("The first value: %v\n", bookings[0])
+	// fmt.Printf("Slice type: %T\n", bookings)
+	// fmt.Printf("Slice length: %v\n", len(bookings))
 
 	fmt.Printf("\nThank you %v %v for booking %v ticket(s), you will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-	fmt.Printf("Remaining ticket(s) are %v", remainingTicket)
+	fmt.Printf("Remaining ticket(s) are %v\n", remainingTicket)
+
+	fmt.Printf("These are all our bookings: %v", bookings)
 }
