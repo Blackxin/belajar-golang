@@ -59,7 +59,7 @@ func main() {
 	// fmt.Printf("Capacity: %v\n", cap(a))
 	// a = append(a, 1)
 	// fmt.Println(a)
-	// fmt.Printf("Length: %v\n", len(a))
+	// fmt.Printf("Length: %v\n", len(a ))
 	// fmt.Printf("Capacity: %v\n", cap(a))
 	// a = append(a, []int{2, 3, 4, 5}...)
 	// fmt.Println(a)
@@ -71,5 +71,4 @@ func main() {
 	b := append(a[:2], a[3:]...)
 	fmt.Println(b)
 	fmt.Println(a)
-
 }
