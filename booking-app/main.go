@@ -16,7 +16,7 @@ func main() {
 
 	var bookings []string
 
-	for {
+	for remainingTicket > 0 {
 
 		var firstName string
 		var lastName string
@@ -36,31 +36,42 @@ func main() {
 		fmt.Print("Enter number of ticket(s) : ")
 		fmt.Scan(&userTickets)
 
-		// userTickets validation
-		if userTickets > remainingTicket {
-			fmt.Printf("You can't book tickets more than %v\n\n", remainingTicket)
-			continue
-		}
+		isValidName := len(firstName) >= 2 && len(lastName) >= 2
+		isValidEmail := strings.Contains(email, "@")
+		isValidTicketNumber := userTickets > 0 && userTickets <= remainingTicket
 
-		remainingTicket -= userTickets
-		bookings = append(bookings, firstName+" "+lastName)
+		if isValidName && isValidEmail && isValidTicketNumber {
+			remainingTicket -= userTickets
+			bookings = append(bookings, firstName+" "+lastName)
 
-		fmt.Printf("\nThank you %v %v for booking %v ticket(s), you will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
-		fmt.Printf("Remaining ticket(s) are %v\n", remainingTicket)
+			fmt.Printf("\nThank you %v %v for booking %v ticket(s), you will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
+			fmt.Printf("Remaining ticket(s) are %v\n", remainingTicket)
 
-		firstNames := []string{}
-		for _, booking := range bookings {
-			var names = strings.Fields(booking)
-			var firstName = names[0]
-			firstNames = append(firstNames, firstName)
-		}
+			firstNames := []string{}
+			for _, booking := range bookings {
+				var names = strings.Fields(booking)
+				var firstName = names[0]
+				firstNames = append(firstNames, firstName)
+			}
 
-		fmt.Printf("These are all our bookings: %v\n\n", firstNames)
+			fmt.Printf("These are all our bookings: %v\n\n", firstNames)
 
-		// if remaining tickets are empty
-		if remainingTicket == 0 {
-			fmt.Println("Our conference is booked out. Come back next year.")
-			break
+			if remainingTicket == 0 {
+				fmt.Println("Our conference is booked out. Come back next year.")
+				break
+			}
+		} else {
+			fmt.Println("")
+			if !isValidName {
+				fmt.Println("First name or last name you entered is too short")
+			}
+			if !isValidEmail {
+				fmt.Println("Your email doesn't contain @ symbol")
+			}
+			if !isValidTicketNumber {
+				fmt.Println("Number of tickets you entered is invalid")
+			}
+			fmt.Println("")
 		}
 	}
 }
