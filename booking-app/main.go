@@ -36,6 +36,7 @@ func main() {
 		fmt.Print("Enter number of ticket(s) : ")
 		fmt.Scan(&userTickets)
 
+		// userTickets validation
 		if userTickets > remainingTicket {
 			fmt.Printf("You can't book tickets more than %v\n\n", remainingTicket)
 			continue
@@ -56,6 +57,7 @@ func main() {
 
 		fmt.Printf("These are all our bookings: %v\n\n", firstNames)
 
+		// if remaining tickets are empty
 		if remainingTicket == 0 {
 			fmt.Println("Our conference is booked out. Come back next year.")
 			break
