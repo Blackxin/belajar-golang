@@ -3,14 +3,14 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strings"
+	"strconv"
 )
 
 const conferenceTicket uint8 = 50
 
 var conferenceName string = "Go Conference"
 var remainingTicket uint8 = 50
-var bookings []string
+var bookings = make([]map[string]string, 0)
 
 func main() {
 	greetUsers()
@@ -26,7 +26,7 @@ func main() {
 			remainingTicket, bookings = bookTicket(userTickets, firstName, lastName, email)
 
 			// call function print first names
-			firstNames := printFirstNames()
+			firstNames := getFirstNames()
 			fmt.Printf("These are all our bookings: %v\n\n", firstNames)
 
 			if remainingTicket == 0 {
@@ -68,12 +68,10 @@ func greetUsers() {
 	fmt.Printf("Get your tickets here to attend\n\n")
 }
 
-func printFirstNames() []string {
+func getFirstNames() []string {
 	firstNames := []string{}
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-		var firstName = names[0]
-		firstNames = append(firstNames, firstName)
+		firstNames = append(firstNames, booking["firstName"])
 	}
 
 	return firstNames
@@ -101,9 +99,19 @@ func getUserInput() (string, string, string, uint8) {
 	return firstName, lastName, email, userTickets
 }
 
-func bookTicket(userTickets uint8, firstName string, lastName string, email string) (uint8, []string) {
+func bookTicket(userTickets uint8, firstName string, lastName string, email string) (uint8, []map[string]string) {
 	remainingTicket -= userTickets
-	bookings = append(bookings, firstName+" "+lastName)
+
+	// create a map for a user
+	var userData = make(map[string]string)
+	userData["firstName"] = firstName
+	userData["lastName"] = lastName
+	userData["email"] = email
+	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// userData["userTickets"] = string(userTickets)
+
+	bookings = append(bookings, userData)
+	fmt.Printf("\nList of bookings is %v\n", bookings)
 
 	fmt.Printf("\nThank you %v %v for booking %v ticket(s), you will receive a confirmation email at %v\n", firstName, lastName, userTickets, email)
 	fmt.Printf("Remaining ticket(s) are %v\n", remainingTicket)
