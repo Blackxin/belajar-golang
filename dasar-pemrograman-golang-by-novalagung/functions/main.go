@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math"
+	"strings"
 )
 
 func main() {
@@ -22,11 +22,24 @@ func main() {
 	// divideNumber(4, 0)
 	// divideNumber(8, -4)
 
-	var diameter float64 = 15
-	var area, circumference = calculate(diameter)
+	// var diameter float64 = 15
+	// var area, circumference = calculate(diameter)
 
-	fmt.Printf("luas lingkaran\t\t: %.2f\n", area)
-	fmt.Printf("keliling lingkaran\t: %.2f\n", circumference)
+	// fmt.Printf("luas lingkaran\t\t: %.2f\n", area)
+	// fmt.Printf("keliling lingkaran\t: %.2f\n", circumference)
+
+	// avg := calculate(2, 4, 3, 5, 4, 3, 3, 5, 5, 3)
+	// msg := fmt.Sprintf("Rata-rata : %.2f", avg)
+	// fmt.Println(msg)
+
+	// Pengisian Parameter Fungsi Variadic Menggunakan Data Slice
+	// numbers := []int{2, 4, 3, 5, 4, 3, 3, 5, 5, 3}
+	// avg := calculate(numbers...)
+	// msg := fmt.Sprintf("Rata=rata: %.2f", avg)
+	// fmt.Println(msg)
+
+	hobbies := []string{"listening to music", "coding", "gaming"}
+	printYourHobbies("Taufik", hobbies...)
 }
 
 // func printMessage(message string, arr []string) {
@@ -52,8 +65,26 @@ func main() {
 // }
 
 // Penerapan Fungsi Multiple Return
-func calculate(d float64) (area float64, circumference float64) {
-	area = math.Pi * math.Pow(d/2, 2)
-	circumference = math.Pi * d
-	return
+// func calculate(d float64) (area float64, circumference float64) {
+// 	area = math.Pi * math.Pow(d/2, 2)
+// 	circumference = math.Pi * d
+// 	return
+// }
+
+// penerapan fungsi variadic
+// func calculate(numbers ...int) float64 {
+// 	total := 0
+// 	for _, number := range numbers {
+// 		total += number
+// 	}
+
+// 	avg := float64(total) / float64(len(numbers))
+// 	return avg
+// }
+
+// Fungsi Dengan Parameter Biasa & Variadic
+func printYourHobbies(name string, hobbies ...string) {
+	hobbiesAsString := strings.Join(hobbies, ", ")
+	fmt.Printf("Hello, my name is %v\n", name)
+	fmt.Printf("My hobbies are %v\n", hobbiesAsString)
 }
