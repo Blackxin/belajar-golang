@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Payload</title>
+  <script defer type="module">
+    const userForm = document.getElementById('user-form');
+    userForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const gender = document.getElementById('gender').value;
+
+      const payload = JSON.stringify({
+        name,
+        age: parseInt(age, 10),
+        gender
+      });
+
+      console.log('Payload:', payload);
+
+      (async () => {
+        try {
+          const response = await fetch('/save', {
+            method: 'POST',
+            body: payload,
+            /*    headers: {
+                 'Content-Type': 'application/json',
+               } */
+          });
+          const data = await response.text();
+
+          console.log(data);
+
+          const messageEl = document.getElementsByClassName('message')[0];
+          messageEl.innerHTML = data;
+        } catch (err) {
+          alert(`ERROR: ${err}`)
+        }
+
+      })()
+    });
+  </script>
+</head>
+
+<body>
+  <p class="message"></p>
+  <form action="/save" method="post" id="user-form">
+    <table noborder>
+      <tr>
+        <td><label for="name">Name :</label></td>
+        <td><input type="text" required name="name" placeholder="Type name here" id="name" /></td>
+      </tr>
+      <tr>
+        <td><label for="age">Age :</label></td>
+        <td><input type="number" required name="age" placeholder="Set age" id="age" /></td>
+      </tr>
+      <tr>
+        <td><label for="gender">Gender :</label></td>
+        <td>
+          <select name="gender" id="gender" required style="width: 100%;">
+            <option value="">Select one</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" style="text-align: right;">
+          <button type="submit">Save</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+
+</html>

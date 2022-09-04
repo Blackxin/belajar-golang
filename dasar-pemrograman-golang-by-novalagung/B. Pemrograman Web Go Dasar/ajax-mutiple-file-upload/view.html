@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Upload</title>
+  <script defer>
+    const userFormEl = document.getElementById('user-form');
+
+    userFormEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const files = document.getElementById('upload-file').files;
+      const formData = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+      }
+
+      (async () => {
+        try {
+          const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData,
+          })
+          const data = await response.text();
+          alert(data);
+          userFormEl.reset();
+        } catch (error) {
+          alert(`ERROR: ${err}`)
+        }
+      })();
+    })
+  </script>
+</head>
+
+<body>
+  <form action="/upload" method="post" id="user-form" enctype="multipart/form-data">
+    <input type="file" name="file" id="upload-file" required multiple /> <br />
+    <button type="submit" id="btn-upload">Upload</button>
+  </form>
+</body>
+
+</html>
